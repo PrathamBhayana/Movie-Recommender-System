@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommender System</h1>
+        <form method="POST">
+            <label for="movie">Type or select a movie:</label>
+            <select name="movie" id="movie" required>
+                <option value="">--Select a movie--</option>
+                {% for movie in movie_list %}
+                    <option value="{{ movie }}" {% if selected_movie == movie %}selected{% endif %}>{{ movie }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Show Recommendation</button>
+        </form>
+        {% if recommendations|length > 0 %}
+        <div class="recommendations">
+            {% for name, poster in recommendations %}
+            <div class="movie">
+                <img src="{{ poster }}" alt="{{ name }}" loading="lazy">
+                <div>{{ name }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
